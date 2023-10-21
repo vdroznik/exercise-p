@@ -1,0 +1,20 @@
+{
+    "name": "vdroznik/exercise-promo",
+    "description": "Promo codes exercise",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "ExercisePromo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Vladimir Droznik",
+            "email": "vladimir.droznik@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.12",
+        "slim/psr7": "^1.6"
+    }
+}
