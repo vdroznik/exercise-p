@@ -9,6 +9,8 @@ use Odan\Session\PhpSession;
 use Odan\Session\SessionInterface;
 use Odan\Session\SessionManagerInterface;
 use Psr\Container\ContainerInterface;
+use Random\Engine as RandomEngine;
+use Random\Engine\Secure as RandomEngineSecure;
 use Slim\Factory\AppFactory;
 use Slim\Views\PhpRenderer;
 
@@ -32,6 +34,7 @@ $container = new Container([
 
         return new PhpSession($options);
     },
+    RandomEngine::class => DI\get(RandomEngineSecure::class),
 ]);
 AppFactory::setContainer($container);
 $app = AppFactory::create();
@@ -40,6 +43,7 @@ $app->get('/', [FrontController::class, 'index']);
 $app->group('/profile', function () use ($app) {
     $app->post('/profile/check-login', [LoginController::class, 'checkLogin']);
     $app->get('/profile', [ProfileController::class, 'index']);
+    $app->get('/profile/getpromo', [ProfileController::class, 'getPromo']);
 })->add(SessionStartMiddleware::class);
 
 $app->run();

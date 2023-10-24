@@ -16,7 +16,7 @@ class LoginController
 
     public function checkLogin(Request $request, Response $response): Response
     {
-        $this->session->set('userId', 'test');
+        $this->session->set('userId', 102);
 
         return $response
             ->withHeader('Location', '/profile')
