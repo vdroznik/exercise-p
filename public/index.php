@@ -1,6 +1,8 @@
 <?php
 
-use DI\Container;
+use DI\ContainerBuilder;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
 use ExercisePromo\Controller\FrontController;
 use ExercisePromo\Controller\AuthController;
 use ExercisePromo\Controller\ProfileController;
@@ -17,7 +19,9 @@ use Slim\Views\PhpRenderer;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$container = new Container([
+$containerBuilder = new ContainerBuilder();
+$containerBuilder->addDefinitions(__DIR__.'/../config/config.php');
+$containerBuilder->addDefinitions([
     PhpRenderer::class => DI\create()->constructor(
         templatePath: __DIR__ . '/../views',
         layout: 'layout.html.php',
@@ -36,8 +40,12 @@ $container = new Container([
         return new PhpSession($options);
     },
     RandomEngine::class => DI\get(RandomEngineSecure::class),
+    Connection::class => function (ContainerInterface $container) {
+        return DriverManager::getConnection($container->get('db'));
+    },
 ]);
-AppFactory::setContainer($container);
+
+AppFactory::setContainer($containerBuilder->build());
 $app = AppFactory::create();
 
 $app->get('/', [FrontController::class, 'index']);

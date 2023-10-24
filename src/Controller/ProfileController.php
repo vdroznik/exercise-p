@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ExercisePromo\Controller;
 
+use ExercisePromo\Auth\Auth;
 use ExercisePromo\Service\PromoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -12,11 +13,13 @@ class ProfileController extends Controller
 {
     public function index(Request $request, Response $response, $args): Response
     {
+        $auth = $this->container->get(Auth::class);
+
         return $this->view->render(
             $response,
             "profile/index.html.php",
             [
-                'username' => $this->session->get('userId'),
+                'username' => $auth->getUser()->username,
             ]
         );
     }
