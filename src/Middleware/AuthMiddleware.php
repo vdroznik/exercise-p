@@ -3,18 +3,18 @@
 namespace ExercisePromo\Middleware;
 
 use ExercisePromo\Auth\Auth;
-use Odan\Session\SessionInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Psr7\Response;
 
-class AuthMiddleware
+class AuthMiddleware implements MiddlewareInterface
 {
     public function __construct(
         protected Auth $auth,
     ) {}
 
-    public function __invoke(Request $request, RequestHandlerInterface $handler): Response
+    public function process(Request $request, RequestHandlerInterface $handler): Response
     {
         if (!$this->auth->isAuthorized()) {
             $response = new Response();

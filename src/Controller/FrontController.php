@@ -6,9 +6,14 @@ namespace ExercisePromo\Controller;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Views\PhpRenderer;
 
-class FrontController extends Controller
+class FrontController
 {
+    public function __construct(
+        protected PhpRenderer $view,
+    ) {}
+
     public function index(Request $request, Response $response, $args): Response
     {
         return $this->view->render($response, "front/index.html.php", $args);

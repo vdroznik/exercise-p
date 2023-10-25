@@ -4,58 +4,71 @@ declare(strict_types=1);
 
 namespace Unit\Service;
 
+use ExercisePromo\Entity\Promo;
+use ExercisePromo\Entity\User;
+use ExercisePromo\Repository\PromoRepository;
+use ExercisePromo\Service\PromoGenerator;
 use ExercisePromo\Service\PromoService;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Random\Engine as RandomEngine;
 
 class PromoServiceTest extends TestCase
 {
-    private PromoService $promoService;
-
-    protected function setUp(): void
+    public function testFindOrCreatePromoForUserCreate()
     {
-        $this->promoService = new PromoService(
-            new class implements RandomEngine {
-                public function generate(): string
-                {
-                    return "42";
-                }
-            });
-    }
-    
-    #[DataProvider('userIdsProvider')]
-    public function testGeneratePromoForUser($userId, $expectedPromo)
-    {
-        $promo = $this->promoService->generatePromoForUser($userId);
-        $this->assertEquals($expectedPromo, $promo, 'Promo code is correct for user_id = 2');
-    }
+        $userId = 2;
 
-    #[DataProvider('userIdsProvider')]
-    public function testReversePromoToUserId($expectedUserId, $promo)
-    {
-        // below is the reversing algorithm which reconstructs userId from promo code
-        // zero byte is added for the base64_decode to return 8 bytes, required by unpack("Q")
-        $restored = unpack("Q", base64_decode($promo) . "\0")[1];
-        $restoredBin = str_pad(decbin($restored), 56, '0', STR_PAD_LEFT);
-        $resultBin = '';
-        for ($i = 0; $i < 24; $i++) {
-            $resultBin .= $restoredBin[55-$i*2];
-        }
-        for ($i = 24; $i < 32; $i++) {
-            $resultBin .= $restoredBin[31-$i];
-        }
-        $resn = bindec($resultBin);
+        $exprectedPromo = new Promo($userId, 'abcde12345', 0);
+        $promoRepoMock = $this->getMockBuilder(PromoRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $promoRepoMock->expects($this->exactly(2))
+            ->method('findPromoByUserId')
+            ->with($userId)
+            ->willReturnOnConsecutiveCalls(null, $exprectedPromo);
+        $promoRepoMock->expects($this->once())
+            ->method('create')
+            ->willReturn(true);
 
-        $this->assertEquals($expectedUserId, $resn);
+        $SUT = new PromoService(
+            $this->getMockBuilder(PromoGenerator::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+            $promoRepoMock
+        );
+
+        $user = new User('test', $userId);
+        $ip = '192.168.0.1';
+        $promo = $SUT->findOrCreatePromoForUser($user, $ip);
+
+        $this->assertEquals($exprectedPromo, $promo);
     }
 
-    public static function userIdsProvider()
+    public function testFindOrCreatePromoForUserFind()
     {
-        return [
-            'small id with many binary zeroes' => [2, 'ICIgIiAiQA'],
-            'alternating binary 101010' => [2_863_311_530, 'MTMxMzEzVQ'],
-            'maxint, all binary ones' => [4_294_967_295, 'dXd1d3V3/w']
-        ];
+        $userId = 3;
+
+        $exprectedPromo = new Promo($userId, 'abcde12345', 0);
+        $promoRepoMock = $this->getMockBuilder(PromoRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $promoRepoMock->expects($this->once())
+            ->method('findPromoByUserId')
+            ->with($userId)
+            ->willReturn($exprectedPromo);
+        $promoRepoMock->expects($this->never())
+            ->method('create');
+
+        $SUT = new PromoService(
+            $this->getMockBuilder(PromoGenerator::class)
+                ->disableOriginalConstructor()
+                ->getMock(),
+            $promoRepoMock
+        );
+
+        $user = new User('test', $userId);
+        $ip = '192.168.0.1';
+        $promo = $SUT->findOrCreatePromoForUser($user, $ip);
+
+        $this->assertEquals($exprectedPromo, $promo);
     }
 }

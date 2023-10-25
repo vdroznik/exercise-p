@@ -13,8 +13,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class AuthController
 {
     public function __construct(
-        protected Auth $auth,
-        protected UserRepository $userRepo,
+        private Auth $auth,
+        private UserRepository $userRepo,
     ) {}
 
     public function checkLogin(Request $request, Response $response): Response

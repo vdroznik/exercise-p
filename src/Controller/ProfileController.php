@@ -8,31 +8,36 @@ use ExercisePromo\Auth\Auth;
 use ExercisePromo\Service\PromoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Views\PhpRenderer;
 
-class ProfileController extends Controller
+readonly class ProfileController
 {
+    public function __construct(
+        private PhpRenderer $view,
+        private Auth $auth,
+        private PromoService $promoService,
+    ) {}
+
     public function index(Request $request, Response $response, $args): Response
     {
-        $auth = $this->container->get(Auth::class);
-
         return $this->view->render(
             $response,
             "profile/index.html.php",
             [
-                'username' => $auth->getUser()->username,
+                'username' => $this->auth->getUser()->username,
             ]
         );
     }
 
     public function getPromo(Request $request, Response $response): Response
     {
-        /** @var PromoService $promoService */
-        $promoService = $this->container->get(PromoService::class);
-
-        $promo = $promoService->generatePromoForUser($this->session->get('userId'));
+        $promo = $this->promoService->findOrCreatePromoForUser(
+            $this->auth->getUser(),
+            $request->getServerParams()['REMOTE_ADDR']
+        );
 
         return $response
-            ->withHeader('Location', 'https://www.google.com/?query=' . $promo)
+            ->withHeader('Location', 'https://www.google.com/?query=' . $promo->code)
             ->withStatus(302);
     }
 }
