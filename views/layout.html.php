@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \Odan\Session\Flash $flash
+ */
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,5 +12,12 @@
     <title><?= $title ?? 'Welcome to Promo Exercise' ?></title>
 <!--    <link rel="stylesheet" href="style.css" />-->
 </head>
-<body><?= $content ?? '' ?></body>
+<body>
+<div class="flash">
+    <?php foreach ($flash->get('error') as $error): ?>
+    <div class="error" style="color: red"><?= $error ?></div>
+    <?php endforeach; ?>
+</div>
+<?= $content ?? '' ?>
+</body>
 </html>

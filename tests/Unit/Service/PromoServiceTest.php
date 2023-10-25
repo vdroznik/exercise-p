@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Unit\Service;
 
+use Doctrine\DBAL\Connection;
 use ExercisePromo\Entity\Promo;
 use ExercisePromo\Entity\User;
+use ExercisePromo\Repository\IpsRepository;
 use ExercisePromo\Repository\PromoRepository;
 use ExercisePromo\Service\PromoGenerator;
 use ExercisePromo\Service\PromoService;
@@ -30,14 +32,14 @@ class PromoServiceTest extends TestCase
             ->willReturn(true);
 
         $SUT = new PromoService(
-            $this->getMockBuilder(PromoGenerator::class)
-                ->disableOriginalConstructor()
-                ->getMock(),
-            $promoRepoMock
+            $this->getMockBuilder(PromoGenerator::class)->disableOriginalConstructor()->getMock(),
+            $promoRepoMock,
+            $this->getMockBuilder(IpsRepository::class)->disableOriginalConstructor()->getMock(),
+            $this->getMockBuilder(Connection::class)->disableOriginalConstructor()->getMock()
         );
 
         $user = new User('test', $userId);
-        $ip = '192.168.0.1';
+        $ip = ip2long('192.168.0.1');
         $promo = $SUT->findOrCreatePromoForUser($user, $ip);
 
         $this->assertEquals($exprectedPromo, $promo);
@@ -59,14 +61,14 @@ class PromoServiceTest extends TestCase
             ->method('create');
 
         $SUT = new PromoService(
-            $this->getMockBuilder(PromoGenerator::class)
-                ->disableOriginalConstructor()
-                ->getMock(),
-            $promoRepoMock
+            $this->getMockBuilder(PromoGenerator::class)->disableOriginalConstructor()->getMock(),
+            $promoRepoMock,
+            $this->getMockBuilder(IpsRepository::class)->disableOriginalConstructor()->getMock(),
+            $this->getMockBuilder(Connection::class)->disableOriginalConstructor()->getMock()
         );
 
         $user = new User('test', $userId);
-        $ip = '192.168.0.1';
+        $ip = ip2long('192.168.0.1');
         $promo = $SUT->findOrCreatePromoForUser($user, $ip);
 
         $this->assertEquals($exprectedPromo, $promo);

@@ -20,6 +20,7 @@ final class Version20231024111011 extends AbstractMigration
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->setPrimaryKey(["id"]);
         $table->addColumn('user_id', 'integer', ['notnull' => true]);
+        $table->addForeignKeyConstraint('users', ['user_id'], ['id'], ["onDelete" => "RESTRICT"]);
         $table->addColumn('code', 'string', ['notnull' => true, 'length' => 10]);
         $table->addColumn('ip_packed', 'integer', ['notnull' => true, 'unsigned' => true]);
 

@@ -22,10 +22,14 @@ require __DIR__ . '/../vendor/autoload.php';
 $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions(__DIR__.'/../config/config.php');
 $containerBuilder->addDefinitions([
-    PhpRenderer::class => DI\create()->constructor(
-        templatePath: __DIR__ . '/../views',
-        layout: 'layout.html.php',
-    ),
+    PhpRenderer::class => function (ContainerInterface $container) {
+        return new PhpRenderer(
+            templatePath: __DIR__ . '/../views',
+            attributes: ['flash' => $container->get(SessionInterface::class)->getFlash()],
+            layout: 'layout.html.php',
+        );
+    },
+
     SessionManagerInterface::class => function (ContainerInterface $container) {
         return $container->get(SessionInterface::class);
     },

@@ -20,7 +20,7 @@ final class Version20231024103912 extends AbstractMigration
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->setPrimaryKey(["id"]);
         $table->addColumn('username', 'string', ['notnull' => true]);
-        $table->addUniqueIndex(['username'], 'username');
+        $table->addIndex(['username'], 'username');
 
         $table->addColumn('created_at', 'datetime', ['notnull' => true])->setDefault('CURRENT_TIMESTAMP');
         $table->addColumn('updated_at', 'datetime', ['columnDefinition' => 'DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP']);
