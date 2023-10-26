@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8efab1a8940278e0f263e6922e4d0a57",
+    "content-hash": "3dca878e69d0835bc065dfeddabb5817",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -510,16 +510,16 @@
         },
         {
             "name": "laravel/serializable-closure",
-            "version": "v1.3.1",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "e5a3057a5591e1cfe8183034b0203921abe2c902"
+                "reference": "076fe2cf128bd54b4341cdc6d49b95b34e101e4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/e5a3057a5591e1cfe8183034b0203921abe2c902",
-                "reference": "e5a3057a5591e1cfe8183034b0203921abe2c902",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/076fe2cf128bd54b4341cdc6d49b95b34e101e4c",
+                "reference": "076fe2cf128bd54b4341cdc6d49b95b34e101e4c",
                 "shasum": ""
             },
             "require": {
@@ -566,7 +566,7 @@
                 "issues": "https://github.com/laravel/serializable-closure/issues",
                 "source": "https://github.com/laravel/serializable-closure"
             },
-            "time": "2023-07-14T13:56:28+00:00"
+            "time": "2023-10-17T13:38:16+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -2894,16 +2894,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.4.1",
+            "version": "10.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "62bd7af13d282deeb95650077d28ba3600ca321c"
+                "reference": "cacd8b9dd224efa8eb28beb69004126c7ca1a1a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/62bd7af13d282deeb95650077d28ba3600ca321c",
-                "reference": "62bd7af13d282deeb95650077d28ba3600ca321c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/cacd8b9dd224efa8eb28beb69004126c7ca1a1a1",
+                "reference": "cacd8b9dd224efa8eb28beb69004126c7ca1a1a1",
                 "shasum": ""
             },
             "require": {
@@ -2975,7 +2975,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.4.1"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.4.2"
             },
             "funding": [
                 {
@@ -2991,7 +2991,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-08T05:01:11+00:00"
+            "time": "2023-10-26T07:21:45+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -3907,6 +3907,56 @@
                 }
             ],
             "time": "2023-02-07T11:34:05+00:00"
+        },
+        {
+            "name": "selective/test-traits",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/selective-php/test-traits.git",
+                "reference": "8617f6aebdefcd65c67dca397ab31503b8806fa2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/selective-php/test-traits/zipball/8617f6aebdefcd65c67dca397ab31503b8806fa2",
+                "reference": "8617f6aebdefcd65c67dca397ab31503b8806fa2",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3",
+                "monolog/monolog": "^2 || ^3",
+                "php-di/php-di": "^6 || ^7",
+                "phpstan/phpstan": "^1",
+                "phpunit/phpunit": "^10",
+                "squizlabs/php_codesniffer": "^3",
+                "symfony/mailer": "^5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Selective\\TestTrait\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A collection of PHPUnit test traits",
+            "homepage": "https://github.com/selective-php/test-traits",
+            "keywords": [
+                "phpunit",
+                "slim",
+                "test",
+                "traits"
+            ],
+            "support": {
+                "issues": "https://github.com/selective-php/test-traits/issues",
+                "source": "https://github.com/selective-php/test-traits/tree/4.1.0"
+            },
+            "time": "2023-10-09T18:56:19+00:00"
         },
         {
             "name": "theseer/tokenizer",
