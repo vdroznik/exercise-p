@@ -16,11 +16,7 @@ make migrate-db
 ```
 
 This will build, initialize and start the development server on port 8080 of your local machine. 
-You can now access your application by visiting http://localhost:8080 in your web browser.
-
-The site is available at address: http://127.0.0.1:8080
-
-
+You can now access your application by visiting http://127.0.0.1:8080 in your web browser.
 
 To uninstall the project, run:
 
