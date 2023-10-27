@@ -1,6 +1,6 @@
 <?php
 
-namespace Integration;
+namespace Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
 use Selective\TestTrait\Traits\ContainerTestTrait;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Service;
+namespace Tests\Unit\Service;
 
 use Doctrine\DBAL\Connection;
 use ExercisePromo\Entity\Promo;

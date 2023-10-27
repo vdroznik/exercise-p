@@ -28,7 +28,7 @@ readonly class PromoController
         $ipPacked = ip2long($ip);
 
         $cnt = $this->ipsRepo->getCountByIp($ipPacked);
-        if ($cnt > self::MAX_PROMOS_PER_IP) {
+        if ($cnt >= self::MAX_PROMOS_PER_IP) {
             $flash = $this->session->getFlash();
             $flash->add('error', 'The number of promo codes issued for this ip is too high.');
 

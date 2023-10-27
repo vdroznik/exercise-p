@@ -6,6 +6,6 @@ return [
         'user' => getenv('MYSQL_USER'),
         'password' => getenv('MYSQL_PASSWORD'),
         'host' => getenv('MYSQL_HOST'),
-        'driver' => 'mysqli',
+        'driver' => 'pdo_mysql',
     ],
 ];

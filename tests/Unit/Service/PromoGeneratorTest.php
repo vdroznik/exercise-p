@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Unit\Service;
+namespace Tests\Unit\Seßrvice;
 
 use ExercisePromo\Service\PromoGenerator;
 use PHPUnit\Framework\Attributes\DataProvider;
