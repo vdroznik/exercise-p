@@ -26,7 +26,7 @@ return [
         return new MemorySession($options);
     },
     RandomEngine::class => function () {
-        return new class implements RandomEngine {
+        return new class () implements RandomEngine {
             public function generate(): string
             {
                 return "42";

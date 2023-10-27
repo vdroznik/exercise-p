@@ -31,10 +31,10 @@ class PromoGenerator
         //            "00000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"
         // string(56) "01000000101000101000101010001010100000000000000010000000"
         for ($i = 0; $i < 24; $i++) {
-            $target[55-$i*2] = $bin[$i];
+            $target[55 - $i * 2] = $bin[$i];
         }
         for ($i = 24; $i < 32; $i++) {
-            $target[31-$i] = $bin[$i];
+            $target[31 - $i] = $bin[$i];
         }
         $dec = bindec($target);
 

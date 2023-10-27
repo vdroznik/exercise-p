@@ -16,7 +16,7 @@ class PromoGeneratorTest extends TestCase
     protected function setUp(): void
     {
         $this->SUT = new PromoGenerator(
-            new class implements RandomEngine {
+            new class () implements RandomEngine {
                 public function generate(): string
                 {
                     return "42";
@@ -41,10 +41,10 @@ class PromoGeneratorTest extends TestCase
         $restoredBin = str_pad(decbin($restored), 56, '0', STR_PAD_LEFT);
         $resultBin = '';
         for ($i = 0; $i < 24; $i++) {
-            $resultBin .= $restoredBin[55-$i*2];
+            $resultBin .= $restoredBin[55 - $i * 2];
         }
         for ($i = 24; $i < 32; $i++) {
-            $resultBin .= $restoredBin[31-$i];
+            $resultBin .= $restoredBin[31 - $i];
         }
         $resn = bindec($resultBin);
 
